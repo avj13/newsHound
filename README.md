@@ -8,6 +8,9 @@ The output is the list of matching articles along with Short Summary of each of 
 To initalize the app
 - clone the repository
 - install the docker > add mongoDB image on it and execute the same
+    ```
+    docker run -d --name mongo_db -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=password -p 27017:27017 mongo
+    ```
 - create a mongoDb database with default username = 'admin',  password = 'password', database = 'demoDB', collection = 'articles'
 - execute a docker run with port exposing port: 27017, which will be used to connect the app to the MongoDB database.
 
