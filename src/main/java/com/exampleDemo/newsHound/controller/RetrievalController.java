@@ -51,20 +51,17 @@ public class RetrievalController {
 
             List<String> categories = (params.get("category"));
             articles = retrievalService.getNewsByCategory(categories);
-            return ResponseEntity.ok(articles);
         }
         else if (intent.equals("search")) {
             List<String> query = List.of(user_query);
             List<String> location = params.get("location");
             query.addAll(location);
             articles = retrievalService.getNewsBySearch(query);
-            return ResponseEntity.ok(articles);
         }
         else if (intent.equals("source")) {
 //            List<String> source = List.of(user_query);
             List<String> source = params.get("source");
             articles = retrievalService.getNewsBySource(source);
-            return ResponseEntity.ok(articles);
         }
         else if (intent.equals("nearby")) {
             double lat = 0.0, lon = 0.0, radius = 50.0;
@@ -72,7 +69,6 @@ public class RetrievalController {
             lon = Double.parseDouble(params.get("lon").get(0));
             radius = Double.parseDouble(params.get("radius").get(0));
             articles = retrievalService.getNewsByLocation(lat, lon, radius);
-            return ResponseEntity.ok(articles);
         }
         else if (intent.equals("score")) {
             double relevant_score;
@@ -80,7 +76,6 @@ public class RetrievalController {
             if(relevant_score <= 0.0 || relevant_score > 1.0 || Double.isNaN(relevant_score))
                 relevant_score = 0.7;
             articles = retrievalService.getNewsByScore(relevant_score);
-            return ResponseEntity.ok(articles);
         }
 
         List<NewsArticleDto> newsArticleList = new ArrayList<>();
