@@ -38,13 +38,11 @@ public class RetrievalController {
                 String paramName = parameterNames.nextElement();
                 params.put(paramName, List.of(request.getParameterValues(paramName)));
             }
-            // rest of your code
         String intent = "";
 
-//        QueryResponse queryResponse = queryIntentService.processQuery(new QueryRequest(user_query));
-//        List<String> intents = queryResponse.getIntents().stream().map(Object::toString).toList();
+        QueryResponse queryResponse = queryIntentService.processQuery(new QueryRequest(user_query));
+        List<String> intents = queryResponse.getIntents().stream().map(Object::toString).toList();
 
-        intent = "category"; // temp hardcoded
 
         List<Article> articles = new ArrayList<>();
 
@@ -95,8 +93,8 @@ public class RetrievalController {
             dto.setSourceName(art.getSourceName());
             dto.setCategory(art.getCategory());
 
-//            String summary = openAISummarizerService.summarize(art);
-//            dto.setSummary(summary);
+            String summary = openAISummarizerService.summarize(art);
+            dto.setSummary(summary);
 
             newsArticleList.add(dto);
         }
