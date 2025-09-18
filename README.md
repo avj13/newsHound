@@ -64,3 +64,20 @@ API : localhost:8080/api/v1/news/
   - user_query : String
   - <custom params> : eg. category, location, lat, long, radius, score, etc.
 
+
+
+sample curl
+```curl --location --request GET 'localhost:8080/api/v1/news/?user_query=Hazaribagh%20news&category=national' \
+--header 'category: national' \
+--header 'Content-Type: application/json' \
+--data '{
+    "title": "Clash erupts in J’khand’s Hazaribagh during Mangla procession",
+    "description": "A clash broke out between two groups during Ram Navami Mangla julus (procession) at Jhanda Chowk of Jharkhand'\''s Hazaribagh on Tuesday night, officials said. \"One group was playing some songs during th...",
+    "url": "https://www.aninews.in/news/national/general-news/jharkhand-clash-breaks-out-in-hazaribaghs-jhanda-chowk-during-mangla-procession20250326091753/",
+    "publicationDate": "2025-03-26T04:42:23",
+    "sourceName": "ANI News",
+    "category": [
+        "national"
+    ]
+}'
+```
