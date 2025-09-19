@@ -1,5 +1,7 @@
 # newsHound
 
+<img width="512" height="512" alt="newsHound" src="https://github.com/user-attachments/assets/16a7fe2f-28e9-4301-b360-3256a6cfbb7c" />
+
 An application to get news articles from the search query based on the intent of the query.
 The intent is powered via a LLM model (openAI) and retrived based on the various parameters and segregated into categories.
 The app searches the relevant news from the database for all the articles already present and gives the relevant news that matches query and intent.
