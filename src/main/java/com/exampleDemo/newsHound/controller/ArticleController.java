@@ -19,47 +19,62 @@ public class ArticleController {
 
     @PostMapping("/save")
     public ResponseEntity<?> saveArticle(@RequestBody ArticleDto articleDto) {
-
-        Article art = getArticleFromDto(articleDto);
-        if (!isValidArticle(art)) {
-            throw new IllegalArgumentException("Invalid data for 1 or more articles");
+        try {
+            Article art = getArticleFromDto(articleDto);
+            if (!isValidArticle(art)) {
+                throw new IllegalArgumentException("Invalid data for 1 or more articles");
+            }
+            String id = articleService.saveArticle(art);
+            return ResponseEntity.ok(id);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
-        String id = articleService.saveArticle(art);
-        return ResponseEntity.ok(id);
     }
 
     @PostMapping("/saveList")
     public ResponseEntity<?> saveList(@RequestBody List<ArticleDto> articleDtoList) {
-        if(articleDtoList.size() > 10){
-            throw new IllegalArgumentException("List size exceeds the limit of 10 articles, use Bulk Insert");
-        }
-        List<Article> articles = articleDtoList.stream().map(articleDto -> {
-            Article art = getArticleFromDto(articleDto);
-            if (!isValidArticle(art)) {
-                throw new IllegalArgumentException("Invalid article data");
+        try {
+            if(articleDtoList.size() > 10){
+                throw new IllegalArgumentException("List size exceeds the limit of 10 articles, use Bulk Insert");
             }
-            return art;
-        }).toList();
-        String ids = articleService.saveAllArticles(articles);
-        return ResponseEntity.ok(ids);
+            List<Article> articles = articleDtoList.stream().map(articleDto -> {
+                Article art = getArticleFromDto(articleDto);
+                if (!isValidArticle(art)) {
+                    throw new IllegalArgumentException("Invalid article data");
+                }
+                return art;
+            }).toList();
+            String ids = articleService.saveAllArticles(articles);
+            return ResponseEntity.ok(ids);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @PostMapping("/bulkInsert")
     public ResponseEntity<?> bulkInsert(@RequestBody List<ArticleDto> articleDtoList){
-        List<Article> articles = articleDtoList.stream().map(articleDto -> {
-            Article art = getArticleFromDto(articleDto);
-            if (!isValidArticle(art)) {
-                throw new IllegalArgumentException("Invalid article data");
-            }
-            return art;
-        }).toList();
-        String output = articleService.bulkInsert(articles);
-        return ResponseEntity.ok(output);
+        try {
+            List<Article> articles = articleDtoList.stream().map(articleDto -> {
+                Article art = getArticleFromDto(articleDto);
+                if (!isValidArticle(art)) {
+                    throw new IllegalArgumentException("Invalid article data");
+                }
+                return art;
+            }).toList();
+            String output = articleService.bulkInsert(articles);
+            return ResponseEntity.ok(output);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @GetMapping("/get")
     public ResponseEntity<?> getArticleByExternalId(@RequestParam String id) {
-        return articleService.getArticleByExternalId(id);
+        try {
+            return articleService.getArticleByExternalId(id);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     LocalDateTime convertDateTime(String input) {
